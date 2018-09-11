@@ -1,3 +1,6 @@
+from functools import wraps
+
+
 x=4
 
 
@@ -79,16 +82,46 @@ class Human:
         return str(self.name)
 
 class Student(Human):
-    def __init__(self, name="bob", age=0, ):
+    def __init__(self, name="bob", age=18, graduate_year=2022):
+        Human.__init__(self,name,age)
+        self.graduate_year = graduate_year
 
+    def graduate(self):
+        return self.graduate_year
 
 jake = Human(age=6, name="jake")
 print(jake)
 
+jon = Student(name="Jon",graduate_year=2020)
+print(jon)
+print(jon.graduate())
+
+try:
+    print("1"+1)
+except:
+    print("Can't add nums & strings")
 
 
 
+def beg(target_function):
+    @wraps(target_function)
+    def wrapper(*args, **kwargs):
+        msg, say_please = target_function(*args, **kwargs)
+        if say_please:
+            return "{} {}".format(msg, "Please! I am poor :(")
+        return msg
 
+    return wrapper
+
+
+@beg
+def say(say_please=False):
+    msg = "Can you buy me a beer?"
+    return msg, say_please
+
+
+print(say())                 # Can you buy me a beer?
+print(say(say_please=True))  # Can you buy me a beer? Please! I am poor :(
 
 
 
