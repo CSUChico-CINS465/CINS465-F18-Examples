@@ -2,6 +2,12 @@
 
 {% block content %}
 <h1>Hello World Template</h1>
+
+<ul>
+{% for item in suggestions %}
+<li>{{ item.suggestion }}</li>
+{% endfor %}
+</ul>
 {% if page %}
 <h2>Page {{ page }}</h2>
 {% endif %}

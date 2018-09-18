@@ -1,9 +1,14 @@
 from django.shortcuts import render
 
+from . import models
 # Create your views here.
 
 def index(request):
-    context = {"title":"Awesome"}
+    suggestions = models.SuggestionModel.objects.all()
+    context = {
+        "title":"Awesome",
+        "suggestions":suggestions
+        }
     return render(request, "index.html", context=context)
 
 def page(request, num, year):
