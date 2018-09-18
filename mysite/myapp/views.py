@@ -1,7 +1,14 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 
 # Create your views here.
 
 def index(request):
-    return HttpResponse("Hello World")
+    context = {"title":"Awesome"}
+    return render(request, "index.html",context=context)
+
+def page(request, num, year):
+    context = {
+        "title":"Awesome",
+        "page":num
+        }
+    return render(request, "index.html",context=context)
