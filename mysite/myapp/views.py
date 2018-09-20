@@ -10,7 +10,7 @@ def index(request):
         form_instance = forms.SuggestionForm(request.POST)
         if form_instance.is_valid():
             suggest = models.SuggestionModel(
-                suggestion = form_instance.cleaned_data["suggestion"]
+                suggestion=form_instance.cleaned_data["suggestion"]
             )
             suggest.save()
             form_instance = forms.SuggestionForm()
