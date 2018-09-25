@@ -1,19 +1,25 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Hello World Template</h1>
+<div class="grid-container">
+  <div class="grid-x grid-padding-x">
+      <div class="large-12 cell">
+        <h1>Hello World Template</h1>
+      </div>
+      {% for item in suggestions %}
+      <div class="large-4 medium-4 small-12 cell">
+        <p>{{ item.suggestion }}</p>
+      </div>
+      {% endfor %}
 
-<ul>
-{% for item in suggestions %}
-<li>{{ item.suggestion }}</li>
-{% endfor %}
-</ul>
+  </div>
+</div>
 {% if page %}
 <h2>Page {{ page }}</h2>
 {% endif %}
 <form action="/" method="post">
     {% csrf_token %}
     {{ form_instance }}
-    <input type="submit" value="Submit">
+    <input type="submit" class="button" value="Submit">
 </form>
 {% endblock %}
