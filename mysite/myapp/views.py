@@ -36,9 +36,9 @@ def page(request, num, year):
 def rest_suggestion(request):
     if request.method == 'GET':
         suggestions = models.SuggestionModel.objects.all()
-        list_of_suggestions=[]
+        list_of_suggestions = []
         for suggest in suggestions:
-            list_of_suggestions+=[{
+            list_of_suggestions += [{
                 "suggestion":suggest.suggestion,
                 "id":suggest.id
             }]

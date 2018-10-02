@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
 <div class="grid-container">
   <div class="grid-x grid-padding-x">
@@ -22,4 +22,35 @@
     {{ form_instance }}
     <input type="submit" class="button" value="Submit">
 </form>
+
+<div id="app">
+  {% verbatim %}
+  {{ message }}
+  {% endverbatim %}
+</div>
+<div id="app-2">
+  <span v-bind:title="message">
+    Hover your mouse over me for a few seconds
+    to see my dynamically bound title!
+  </span>
+</div>
+<div id="app-3">
+  <span v-if="seen">Now you see me</span>
+</div>
+
+<div id="app-4">
+  <ul>
+    <li v-for="todo in todos">
+      {% verbatim %}
+      {{ todo.text }}
+      {% endverbatim %}
+    </li>
+  </ul>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<!-- development version, includes helpful console warnings -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="{% static "js/my_vue.js" %}"></script>
 {% endblock %}
