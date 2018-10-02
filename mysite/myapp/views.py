@@ -43,5 +43,4 @@ def rest_suggestion(request):
                 "id":suggest.id
             }]
         return JsonResponse({"suggestions":list_of_suggestions})
-    else:
-        return HttpResponse("Invalid HTTP Method")
+    return HttpResponse("Invalid HTTP Method")
