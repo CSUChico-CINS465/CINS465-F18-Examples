@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
+from django.http import JsonResponse
+# import json
 
 from . import models
 from . import forms
@@ -30,3 +32,16 @@ def page(request, num, year):
         "page":num
         }
     return render(request, "index.html", context=context)
+
+def rest_suggestion(request):
+    if request.method == 'GET':
+        suggestions = models.SuggestionModel.objects.all()
+        list_of_suggestions=[]
+        for suggest in suggestions:
+            list_of_suggestions+=[{
+                "suggestion":suggest.suggestion,
+                "id":suggest.id
+            }]
+        return JsonResponse(list_of_suggestions,safe=False)
+    else:
+        return HttpResponse("Invalid HTTP Method")
