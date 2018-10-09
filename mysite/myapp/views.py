@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from django.http import JsonResponse
 # import json
 
@@ -32,6 +32,20 @@ def page(request, num, year):
         "page":num
         }
     return render(request, "index.html", context=context)
+
+def register(request):
+    if request.method == 'POST':
+        registration_form = forms.RegistrationForm(request.POST)
+        if registration_form.is_valid():
+            registration_form.save(commit=True)
+            return redirect("/")
+    else:
+        registration_form = forms.RegistrationForm()
+    context = {
+        "form":registration_form
+        }
+    return render(request, "registration/register.html", context=context)
+
 
 def rest_suggestion(request):
     if request.method == 'GET':
