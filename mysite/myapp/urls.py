@@ -9,4 +9,5 @@ urlpatterns = [
     path('suggestions/', views.rest_suggestion),
     path('register/', views.register),
     path('login/', adminviews.LoginView.as_view()),
+    path('logout/', views.logout_view),
 ]

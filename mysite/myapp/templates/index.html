@@ -6,6 +6,14 @@
       <div class="large-12 cell">
         <h1>Hello World Template</h1>
       </div>
+      <!-- <div class="large-12 cell">
+        {% if user.is_authenticated %}
+            <p>Welcome, {{ user.username }}. Thanks for logging in.</p>
+        {% else %}
+            <p>Welcome, new user. <a href="/login/">Please log in.</a></p>
+        {% endif %}
+      </div> -->
+      {% if user.is_authenticated %}
       <div id="app-4">
         <ul>
           <li v-for="todo in suggestions">
@@ -15,23 +23,27 @@
           </li>
         </ul>
       </div>
-
+      {% endif %}
   </div>
 </div>
 {% if page %}
 <h2>Page {{ page }}</h2>
 {% endif %}
+{% if user.is_authenticated %}
 <form action="/" method="post">
     {% csrf_token %}
     {{ form_instance }}
     <input type="submit" class="button expanded" value="Submit">
 </form>
+{% endif %}
 
 {% endblock %}
 
 {% block scripts %}
 <!-- development version, includes helpful console warnings -->
+{% if user.is_authenticated %}
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.js"></script>
 <script src="{% static "js/my_vue.js" %}"></script>
+{% endif %}
 {% endblock %}

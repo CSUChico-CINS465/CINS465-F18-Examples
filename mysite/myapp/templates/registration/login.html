@@ -16,7 +16,7 @@
         {{ form.password }}
         <input type="submit" class="button expanded" value="Login" />
         <a href="/register/" class="secondary button expanded">Register</a>
-        <input type="hidden" name="next" value="/" />
+        <input type="hidden" name="next" value="{{ request.GET.next }}" />
     </form>
   </div>
 </div>

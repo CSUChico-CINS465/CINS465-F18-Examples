@@ -1,11 +1,15 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.http import JsonResponse
+from django.contrib.auth import logout
+from django.conf import settings
+from django.contrib.auth.decorators import login_required
+
 # import json
 
 from . import models
 from . import forms
 # Create your views here.
-
+@login_required
 def index(request):
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
@@ -33,6 +37,10 @@ def page(request, num, year):
         }
     return render(request, "index.html", context=context)
 
+def logout_view(request):
+    logout(request)
+    return redirect("/login/")
+
 def register(request):
     if request.method == 'POST':
         registration_form = forms.RegistrationForm(request.POST)
@@ -46,8 +54,9 @@ def register(request):
         }
     return render(request, "registration/register.html", context=context)
 
-
 def rest_suggestion(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({"suggestions":[]})
     if request.method == 'GET':
         suggestions = models.SuggestionModel.objects.all()
         list_of_suggestions = []
