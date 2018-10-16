@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.http import JsonResponse
 from django.contrib.auth import logout
-from django.conf import settings
+# from django.conf import settings
 from django.contrib.auth.decorators import login_required
 
 # import json
@@ -18,11 +18,10 @@ def index(request):
             if request.user.is_authenticated:
                 suggest = models.SuggestionModel(
                     suggestion=form_instance.cleaned_data["suggestion"],
-                    author = request.user
+                    author=request.user
                 )
                 suggest.save()
                 form_instance = forms.SuggestionForm()
-            
     else:
         form_instance = forms.SuggestionForm()
     suggestions = models.SuggestionModel.objects.all()
