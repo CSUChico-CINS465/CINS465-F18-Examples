@@ -33,7 +33,7 @@ def index(request):
     return render(request, "index.html", context=context)
 
 @login_required
-def comment(request):
+def comment_view(request):
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
         form_instance = forms.CommentForm(request.POST)
