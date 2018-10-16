@@ -32,6 +32,27 @@ def index(request):
         }
     return render(request, "index.html", context=context)
 
+@login_required
+def comment(request):
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form_instance = forms.CommentForm(request.POST)
+        if form_instance.is_valid():
+            if request.user.is_authenticated:
+                comment = models.CommentModel(
+                    comment=form_instance.cleaned_data["comment"],
+                    author=request.user
+                )
+                comment.save()
+                form_instance = forms.CommentForm()
+    else:
+        form_instance = forms.CommentForm()
+    context = {
+        "title":"Awesome",
+        "form_instance":form_instance
+        }
+    return render(request, "comment.html", context=context)
+
 def page(request, num, year):
     context = {
         "title":"Awesome",
