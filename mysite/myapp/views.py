@@ -15,11 +15,14 @@ def index(request):
         # create a form instance and populate it with data from the request:
         form_instance = forms.SuggestionForm(request.POST)
         if form_instance.is_valid():
-            suggest = models.SuggestionModel(
-                suggestion=form_instance.cleaned_data["suggestion"]
-            )
-            suggest.save()
-            form_instance = forms.SuggestionForm()
+            if request.user.is_authenticated:
+                suggest = models.SuggestionModel(
+                    suggestion=form_instance.cleaned_data["suggestion"],
+                    author = request.user
+                )
+                suggest.save()
+                form_instance = forms.SuggestionForm()
+            
     else:
         form_instance = forms.SuggestionForm()
     suggestions = models.SuggestionModel.objects.all()
@@ -63,6 +66,7 @@ def rest_suggestion(request):
         for suggest in suggestions:
             list_of_suggestions += [{
                 "suggestion":suggest.suggestion,
+                "author":suggest.author.username,
                 "id":suggest.id
             }]
         return JsonResponse({"suggestions":list_of_suggestions})

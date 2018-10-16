@@ -48,6 +48,7 @@ var app4 = new Vue({
         axios
           .get('/suggestions/')
           .then(response => (this.suggestions = response.data.suggestions))
+        console.log(this.suggestions)
     },
     cancelAutoUpdate: function() { clearInterval(this.timer) }
   },
