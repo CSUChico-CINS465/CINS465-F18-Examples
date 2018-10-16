@@ -37,6 +37,7 @@ test:
   image: "$CI_REGISTRY_IMAGE:testing"
   script:
     - cd /code/mysite
+    - python manage.py migrate
     - coverage --version
     - coverage run --source='.' ./manage.py test
     - coverage report --skip-covered

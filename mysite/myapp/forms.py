@@ -8,6 +8,12 @@ class SuggestionForm(forms.Form):
         max_length=240
         )
 
+class CommentForm(forms.Form):
+    comment = forms.CharField(
+        label='Comment',
+        max_length=240
+        )
+
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField(
         label="Email",
