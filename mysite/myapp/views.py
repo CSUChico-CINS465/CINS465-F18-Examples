@@ -33,23 +33,27 @@ def index(request):
     return render(request, "index.html", context=context)
 
 @login_required
-def comment_view(request):
+def comment_view(request, suggestion_id):
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
         form_instance = forms.CommentForm(request.POST)
         if form_instance.is_valid():
             if request.user.is_authenticated:
+                suggestion_instance = models.SuggestionModel.objects.get(pk=suggestion_id)
                 comment = models.CommentModel(
                     comment=form_instance.cleaned_data["comment"],
-                    author=request.user
+                    author=request.user,
+                    suggestion=suggestion_instance
                 )
                 comment.save()
                 form_instance = forms.CommentForm()
+                return redirect("/")
     else:
         form_instance = forms.CommentForm()
     context = {
         "title":"Awesome",
-        "form_instance":form_instance
+        "form_instance":form_instance,
+        "suggestion_id":suggestion_id
         }
     return render(request, "comment.html", context=context)
 
@@ -84,10 +88,19 @@ def rest_suggestion(request):
         suggestions = models.SuggestionModel.objects.all()
         list_of_suggestions = []
         for suggest in suggestions:
-            list_of_suggestions += [{
+            add_to_list={
                 "suggestion":suggest.suggestion,
                 "author":suggest.author.username,
-                "id":suggest.id
-            }]
+                "id":suggest.id,
+                "comments":[]
+            }
+            comment_query = models.CommentModel.objects.filter(suggestion=suggest)
+            for comm in comment_query:
+                add_to_list["comments"]+=[{
+                    "comment":comm.comment,
+                    "id":comm.id,
+                    "author":comm.author.username
+                }]
+            list_of_suggestions += [add_to_list]
         return JsonResponse({"suggestions":list_of_suggestions})
     return HttpResponse("Invalid HTTP Method")

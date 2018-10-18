@@ -19,8 +19,13 @@
           <li v-for="todo in suggestions">
             {% verbatim %}
             {{ todo.suggestion }} authored by {{ todo.author }}
+            <a v-bind:href="'/comment/'+ todo.id+'/'">comment</a>
+            <ul>
+              <li v-for="comm in todo.comments">
+                {{ comm.comment }} authored by {{ comm.author }}
+              </li>
+            </ul>
             {% endverbatim %}
-            <a href="/comment/">comment</a>
           </li>
         </ul>
       </div>
