@@ -100,7 +100,8 @@ def rest_suggestion(request):
                 add_to_list["comments"] += [{
                     "comment":comm.comment,
                     "id":comm.id,
-                    "author":comm.author.username
+                    "author":comm.author.username,
+                    "created_on":comm.creation_date
                 }]
             list_of_suggestions += [add_to_list]
         return JsonResponse({"suggestions":list_of_suggestions})

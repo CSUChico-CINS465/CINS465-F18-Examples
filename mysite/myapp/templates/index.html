@@ -22,7 +22,7 @@
             <a v-bind:href="'/comment/'+ todo.id+'/'">comment</a>
             <ul>
               <li v-for="comm in todo.comments">
-                {{ comm.comment }} authored by {{ comm.author }}
+                {{ comm.comment }} authored by {{ comm.author }} on {{ comm.created_on }}
               </li>
             </ul>
             {% endverbatim %}
