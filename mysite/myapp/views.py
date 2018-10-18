@@ -88,15 +88,16 @@ def rest_suggestion(request):
         suggestions = models.SuggestionModel.objects.all()
         list_of_suggestions = []
         for suggest in suggestions:
-            add_to_list={
+            add_to_list = {
                 "suggestion":suggest.suggestion,
                 "author":suggest.author.username,
                 "id":suggest.id,
+                "created_on":suggest.creation_date,
                 "comments":[]
             }
             comment_query = models.CommentModel.objects.filter(suggestion=suggest)
             for comm in comment_query:
-                add_to_list["comments"]+=[{
+                add_to_list["comments"] += [{
                     "comment":comm.comment,
                     "id":comm.id,
                     "author":comm.author.username
