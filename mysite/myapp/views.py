@@ -11,6 +11,7 @@ from . import forms
 # Create your views here.
 @login_required
 def index(request):
+    comm_form = forms.CommentForm()
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
         form_instance = forms.SuggestionForm(request.POST)
@@ -28,7 +29,8 @@ def index(request):
     context = {
         "title":"Awesome",
         "suggestions":suggestions,
-        "form_instance":form_instance
+        "form_instance":form_instance,
+        "comm_form":comm_form
         }
     return render(request, "index.html", context=context)
 
@@ -46,8 +48,9 @@ def comment_view(request, suggestion_id):
                     suggestion=suggestion_instance
                 )
                 comment.save()
-                form_instance = forms.CommentForm()
                 return redirect("/")
+        # else:
+        #     return redirect("/")
     else:
         form_instance = forms.CommentForm()
     context = {

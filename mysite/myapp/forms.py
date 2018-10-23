@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.core.validators import validate_slug
 
 class SuggestionForm(forms.Form):
     suggestion = forms.CharField(
@@ -11,7 +12,8 @@ class SuggestionForm(forms.Form):
 class CommentForm(forms.Form):
     comment = forms.CharField(
         label='Comment',
-        max_length=240
+        max_length=240,
+        validators=[validate_slug]
         )
 
 class RegistrationForm(UserCreationForm):
