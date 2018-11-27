@@ -25,7 +25,7 @@ SECRET_KEY = 'x8ww%_v_12z403*pt%=l(bg@uj*x)=hk@qlp()x&9(%-_5vk)6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["35.208.129.144"]
 
 LOGIN_URL = "/login/"
 LOGIN_REDIRECT_URL = "/"
