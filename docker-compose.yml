@@ -4,9 +4,10 @@ version: '3'
 services:
   web:
     restart: always
-    build: .
-    volumes:
-       - .:/code
+    image: registry.gitlab.com/csuchico/csuc-cins465/cins465-f18-examples:latest
+    #build: .
+    #volumes:
+    #   - .:/code
     expose:
        - "8000"
     command: python /code/mysite/manage.py runserver 0.0.0.0:8000
